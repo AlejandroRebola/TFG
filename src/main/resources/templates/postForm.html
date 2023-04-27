@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="container">
+    <form action="#"
+          th:action="@{'/createNewPost'}"
+          th:object="${post}"
+          method="post">
+        <h2>Escribe un nuevo post</h2>
+        <div>
+            <input type="hidden" th:field="*{id}"/>
+            <label>
+                <div class="alert-red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Título erroneo</div>
+                <input type="text" th:field="*{title}" placeholder="Título"/>
+            </label>
+        </div>
+        <div>
+            <label>
+                <div class="alert-red" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Error body</div>
+                <textarea th:field="*{body}" placeholder="Descripción"></textarea>
+            </label>
+        </div>
+        <div class="float-left">
+            <button class="green-btn" type="submit">Enviar</button>
+        </div>
+    </form>
+    <div class="float-right" th:if="${post.id}">
+        <a th:href="@{'/deletePost/{id}'(id=${post.id})}">
+            <button class="green-btn red-btn" type="button">Borrar post</button>
+        </a>
+    </div>
+</div>
+
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+</body>
+</html>

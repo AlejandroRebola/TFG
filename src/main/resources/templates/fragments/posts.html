@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="posts(posts)">
+
+    <div class="posts_wrapper">
+        <div class="post" th:each="post : ${posts}">
+            <h2><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}">Title</a></h2>
+            <h5 th:text="'Publicado en ' + ${#dates.format(post.creationDate, 'yyyy MMMM dd')} + ' por ' + ${post.user.username}">Creado:</h5>
+<img th:if="${post.image}" th:src="@{'/post/image/' + ${post.id}}" />
+            <p th:text="${post.body}">texto body</p>
+            <br>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
